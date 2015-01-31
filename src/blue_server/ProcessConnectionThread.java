@@ -57,33 +57,51 @@ public class ProcessConnectionThread implements Runnable {
 		int x=width/2,y=height/2;
 		int ratiox=1920/width;
 		int ratioy=1080/height;
+		int X = 0,Y = 0;
 		PointerInfo a = MouseInfo.getPointerInfo();
 		Point bb = a.getLocation();
-
+		int dx,dy;
 		System.out.println("width = "+width);
 		System.out.println("height = "+height);
-
-		
+		int vit=4;
+		int h;
 		while(v)
 		{
+			System.out.println(" =<0");
 			try {
-
-				while(s.read(tab.array())>0)
-				{
-					
-					
+				
+				while((h=s.read(tab.array()))>0)
+				{		
+					System.out.println(h);
 					x =( (tab.asIntBuffer().get() * ratiox) );
 					y = ( (tab.asIntBuffer().get(4) * ratioy) );
-					System.out.print("x = "+x);
-					System.out.println(" ; y = "+y);
-					//robot.mouseMove((int)bb.getX() + x  ,(int)bb.getY()  + y );
-
+					
+					a = MouseInfo.getPointerInfo();
+					bb = a.getLocation();
+					
+					if(x-bb.getX()==0)
+						dx=0;
+					/*if(y-bb.getY()==0)
+						dy=0;*/
+					dx = x-X;
+					dy = y-Y;
+					
+					if(dx>1)
+						dx+=vit;
+					else if (dx<-1)
+						dx+=-vit;
+					else dx =0;
+					
+					robot.mouseMove((int)bb.getX() +dx ,(int)bb.getY() + 0);
+					X = x;
+					Y = y;
 				}
 				v=!v;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
 		}
 		System.out.println("client deconnecté");
 	}
