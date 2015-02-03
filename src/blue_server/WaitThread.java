@@ -26,7 +26,7 @@ public class WaitThread implements Runnable{
 			local = LocalDevice.getLocalDevice();
 			local.setDiscoverable(DiscoveryAgent.GIAC);
 
-			UUID uuid = new UUID("d0c722b07e1511e1b0c40800200c9a66", false);
+			UUID uuid = new UUID("1011", true);
 			System.out.println(uuid.toString());
 			System.out.println(local.getBluetoothAddress());
 			System.out.println(local.getFriendlyName());
